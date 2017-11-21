@@ -1,0 +1,32 @@
+<div class="main">
+  <div class="login-page">
+    <div class="texto">
+      <h2>Name Saver</h2>
+    </div>
+    <div class="form">
+      <form [formGroup]="nameForm" (ngSubmit)="FormSubmit(nameForm.value)">
+        <div class="input-group">
+          <label>Name
+            <input type="text" formControlName="name">
+          </label>
+          <div class="alert" *ngIf="!nameForm.controls['name'].valid && nameForm.controls['name'].touched">Check out Validation</div>
+          <div class="alert alert-success" *ngIf="status">
+            <strong>Success!</strong> Indicates, successfully Stored.
+          </div>
+
+          <div class="alert alert-danger" *ngIf="status1">
+            <strong>Danger!</strong> Indicates, {{name_input}} Already presents.
+          </div>
+        </div>
+        <div class="navbar-brand">
+          <button type="submit" class="btn btn-warning" [disabled]="!nameForm.valid">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="names" *ngFor="let name of names">
+    {{name}}
+  </div>
+
+</div>
