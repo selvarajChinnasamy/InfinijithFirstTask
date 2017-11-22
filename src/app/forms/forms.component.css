@@ -76,11 +76,4 @@
     position: absolute;
   }
 
-  .names{
-    background: #43A047;
-    float: left;
-    min-width: 30px;
-    text-align: center;
-    margin: 20px;
-    padding: 10px;
-  }
+  
