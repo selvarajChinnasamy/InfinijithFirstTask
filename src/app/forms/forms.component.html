@@ -9,7 +9,7 @@
           <label>Name
             <input type="text" formControlName="name">
           </label>
-          <div class="alert" *ngIf="!nameForm.controls['name'].valid && nameForm.controls['name'].touched">Check out Validation</div>
+          <div class="alert" *ngIf="nameForm.controls['name'].touched && !nameForm.controls['name'].valid">Check out Validation</div>
           <div class="alert alert-success" *ngIf="status">
             <strong>Success!</strong> Indicates, successfully Stored.
           </div>
