@@ -12,10 +12,12 @@ export class FormsComponent implements OnInit {
   nameForm: FormGroup;
   status: boolean = false;
   name_input = '';
-  names;
+  names=['Selvaraj'];
   error: string = '';
   err: boolean = false;
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder) { 
+    localStorage.setItem("names", JSON.stringify(this.names));
+  }
 
   buildForm() {
     this.nameForm = this.fb.group({
@@ -55,8 +57,6 @@ export class FormsComponent implements OnInit {
 
 
   ErrorCheck() {
-    setTimeout(() => {
-      
 
       console.log(this.nameForm.controls['name'].valid);
       if (!this.nameForm.controls['name'].valid) {
@@ -76,9 +76,6 @@ export class FormsComponent implements OnInit {
         this.err = false;
         this.error = '';
       }
-
-
-    }, 3000);
   }
 
   FormSubmit(data) {
