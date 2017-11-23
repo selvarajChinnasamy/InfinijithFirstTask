@@ -7,15 +7,11 @@
       <form [formGroup]="nameForm" (ngSubmit)="FormSubmit(nameForm.value)">
         <div class="input-group">
           <label>Name
-            <input type="text" formControlName="name" >
+            <input type="text" (keyup)="ErrorCheck()" formControlName="name">
           </label>
-          <div class="alert" *ngIf="nameForm.controls['name'].touched && !nameForm.controls['name'].valid">Check out Validation</div>
+          <div *ngIf="err" class="alert">{{error}}</div>
           <div class="alert alert-success" *ngIf="status">
             <strong>Success!</strong> Indicates, successfully Stored.
-          </div>
-
-          <div class="alert alert-danger" *ngIf="status1">
-            <strong>Danger!</strong> Indicates, {{name_input}} Already presents.
           </div>
         </div>
         <div class="navbar-brand">
@@ -24,6 +20,4 @@
       </form>
     </div>
   </div>
-
-
 </div>
