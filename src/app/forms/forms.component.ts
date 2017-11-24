@@ -1,6 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,EventEmitter,Output } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';    
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { AbstractControl } from '@angular/forms/src/model';
+import { FormServiceService } from '../form-service.service';
+
+export class User {
+  constructor(public name: string) {
+  }
+}
 
 @Component({
   selector: 'app-forms',
@@ -8,7 +15,7 @@ import { AbstractControl } from '@angular/forms/src/model';
   styleUrls: ['./forms.component.css']
 })
 export class FormsComponent implements OnInit {
-
+  @Output() loggedIn = new EventEmitter<User>();
   nameForm: FormGroup;
   status: boolean = false;
   name_input = '';
@@ -57,8 +64,6 @@ export class FormsComponent implements OnInit {
 
 
   ErrorCheck() {
-
-      console.log(this.nameForm.controls['name'].valid);
       if (!this.nameForm.controls['name'].valid) {
         this.err = true;
         if (this.nameForm.get('name').hasError('required')) {
@@ -66,28 +71,33 @@ export class FormsComponent implements OnInit {
         }
         else if (this.nameForm.get('name').hasError('pattern')) {
           this.error = 'Patter Mismatch';
-        }
-        // else(this.nameForm.get('name').hasError('ValidateName'))
-        else {
+        }else {
           this.error = 'Name already Presents';
         }
-      }
-      else {
+      }else {
         this.err = false;
         this.error = '';
       }
   }
 
-  FormSubmit(data) {
-    this.ErrorCheck();
-    console.log(data);
-    var name = JSON.parse(localStorage.getItem("names"));
-    name.push(data.name);
-    localStorage.setItem("names", JSON.stringify(name));
-    this.nameForm.reset();
-    this.status = true;
-    setTimeout(() => { this.status = false; }, 5000);
-  }
+  // SubmitForm(data){ 
+  //   if(this.formservice.FormSubmit(data).status)
+  //   {
+  //     this.nameForm.reset();
+  //     this.status = true;
+  //     setTimeout(() => { this.status = false; }, 5000);
+  //   }    
+  // }
 
+  checkUnit() {
+    console.log(`Login ${this.nameForm.value}`);
+    if (this.nameForm.valid) {
+      this.loggedIn.emit(
+          new User(
+              this.nameForm.value.name,
+          )
+      );
+    }
+  }
 
 }
