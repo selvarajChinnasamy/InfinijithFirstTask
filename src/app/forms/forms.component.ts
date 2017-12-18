@@ -80,24 +80,12 @@ export class FormsComponent implements OnInit {
       }
   }
 
-  // SubmitForm(data){ 
-  //   if(this.formservice.FormSubmit(data).status)
-  //   {
-  //     this.nameForm.reset();
-  //     this.status = true;
-  //     setTimeout(() => { this.status = false; }, 5000);
-  //   }    
-  // }
-
-  checkUnit() {
-    console.log(`Login ${this.nameForm.value}`);
-    if (this.nameForm.valid) {
-      this.loggedIn.emit(
-          new User(
-              this.nameForm.value.name,
-          )
-      );
-    }
+  SubmitForm(data){ 
+    var names = JSON.parse(localStorage.getItem("names"));
+    names.push(data.name);
+   localStorage.setItem("names", JSON.stringify(names));
+      this.nameForm.reset();
+      this.status = true;
+      setTimeout(() => { this.status = false; }, 5000);
   }
-
 }
